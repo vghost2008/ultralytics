@@ -81,7 +81,8 @@ def torch_load(*args, **kwargs):
     from ultralytics.utils.torch_utils import TORCH_1_13
 
     if TORCH_1_13 and "weights_only" not in kwargs:
-        kwargs["weights_only"] = False
+        #kwargs["weights_only"] = False  #wj
+        pass
 
     return _torch_load(*args, **kwargs)
 

@@ -558,7 +558,7 @@ class BaseTrainer:
                 "segment",
                 "pose",
                 "obb",
-            }:
+            }: #wj note
                 data = check_det_dataset(self.args.data)
                 if "yaml_file" in data:
                     self.args.data = data["yaml_file"]  # for validating 'yolo train data=url.zip' usage
