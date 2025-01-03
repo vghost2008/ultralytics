@@ -1,16 +1,24 @@
 from ultralytics import YOLO
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="build gif")
+    parser.add_argument("--gpus",type=str,default="0",help="src dir")
+    args = parser.parse_args()
+    return args
+
+args = parse_args()
 
 # Load a model
-model = YOLO("yolo11l.pt")
+model = YOLO("yolo11l-seg.pt",task="segment")
 
 # Train the model
 train_results = model.train(
     data="b10cfps.yaml",  # path to dataset YAML
     epochs=100,  # number of training epochs
     imgsz=512,  # training image size
-    device="3",  # device to run on, i.e. device=0 or device=0,1,2,3 or device=cpu
+    device="1",  # device to run on, i.e. device=0 or device=0,1,2,3 or device=cpu
     batch=32,
-    task="segment",
 )
 
 # Evaluate model performance on the validation set

@@ -23,7 +23,7 @@ def main(args):
             config = {}
     files = glob.glob(osp.join(args.data_dir,"*.jpg"))
     imgss = config.get('imgsz',512)
-
+    #predict: ultralytics/engine/predictor.py
     for f in files:
         #results = model.predict("bus.jpg", save=True, imgsz=320, conf=0.5)
         results = model.predict(f, save=True, imgsz=imgss, conf=args.score_thr)

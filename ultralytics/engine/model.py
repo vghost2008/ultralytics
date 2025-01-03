@@ -288,6 +288,9 @@ class Model(nn.Module):
         if Path(weights).suffix == ".pt":
             self.model, self.ckpt = attempt_load_one_weight(weights)
             self.task = self.model.args["task"]
+            if task is not None and task != self.task:
+                print(f"ERROR: ignore input task {task}, use task {self.task} in ckpt.")
+                assert task==self.task, f"ERROR: ignore input task {task}, use task {self.task} in ckpt."
             self.overrides = self.model.args = self._reset_ckpt_args(self.model.args)
             self.ckpt_path = self.model.pt_path
         else:
@@ -778,6 +781,9 @@ class Model(nn.Module):
             >>> model = YOLO("yolo11n.pt")
             >>> results = model.train(data="coco8.yaml", epochs=3)
         """
+        if "task" in kwargs and kwargs['task'] != self.task:
+            print(f"ERROR: can't input task arguments in train")
+            assert "task" not in kwargs, f"ERROR: can't input task arguments in train"
         self._check_is_pytorch_model()
         if hasattr(self.session, "model") and self.session.model.id:  # Ultralytics HUB session with loaded model
             if any(kwargs):
