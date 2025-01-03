@@ -10,7 +10,7 @@ def parse_args():
 args = parse_args()
 
 # Load a model
-model = YOLO("yolov8l.pt")
+model = YOLO("yolo11l.pt")
 
 # Train the model
 train_results = model.train(

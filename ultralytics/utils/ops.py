@@ -675,7 +675,8 @@ def process_mask(protos, masks_in, bboxes, shape, upsample=False):
         (torch.Tensor): A binary mask tensor of shape [n, h, w], where n is the number of masks after NMS, and h and w
             are the height and width of the input image. The mask is applied to the bounding boxes.
     """
-    c, mh, mw = protos.shape  # CHW
+    #c, mh, mw = protos.shape  # CHW
+    c, mh, mw = protos.shape[-3:]  # CHW
     ih, iw = shape
     masks = (masks_in @ protos.float().view(c, -1)).view(-1, mh, mw)  # CHW
     width_ratio = mw / iw

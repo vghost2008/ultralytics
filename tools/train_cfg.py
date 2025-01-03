@@ -1,14 +1,23 @@
 from ultralytics import YOLO
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="build gif")
+    parser.add_argument("--gpus",type=str,default="0",help="src dir")
+    args = parser.parse_args()
+    return args
+
+args = parse_args()
 
 # Load a model
-model = YOLO("yolov8s.pt")
+model = YOLO("yolo11l.pt")
 
 # Train the model
 train_results = model.train(
     data="b10cfg.yaml",  # path to dataset YAML
     epochs=100,  # number of training epochs
     imgsz=512,  # training image size
-    device="3",  # device to run on, i.e. device=0 or device=0,1,2,3 or device=cpu
+    device=args.gpus,  # device to run on, i.e. device=0 or device=0,1,2,3 or device=cpu
     batch=32,
     task="segment",
 )
@@ -17,7 +26,7 @@ train_results = model.train(
 metrics = model.val()
 
 # Perform object detection on an image
-results = model("/home/wj/ai/mldata1/B10CFOD/g_example_input1/BW.jpg")
+results = model("/home/wj/ai/mldata1/B10CFOD/example_input/BW.jpg")
 results[0].show()
 
 # Export the model to ONNX format

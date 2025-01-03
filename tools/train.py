@@ -13,12 +13,14 @@ args = parse_args()
 model = YOLO("yolo11l.pt")
 
 # Train the model
+#ultralytics/engine/model.py
 train_results = model.train(
     data="b10aoi.yaml",  # path to dataset YAML
     epochs=1000,  # number of training epochs
     imgsz=512,  # training image size
     device=args.gpus,  # device to run on, i.e. device=0 or device=0,1,2,3 or device=cpu
     batch=32,
+    optimizer="AdamW",
 )
 
 # Evaluate model performance on the validation set
