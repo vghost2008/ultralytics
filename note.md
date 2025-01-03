@@ -36,6 +36,44 @@ CFB: 0.973
 |---|---|---|---|---|---|---|---|---|
 |CFG:cascade_ml1|0.973|0.954|0.997|0.980|0.932|0.990|N.A.|1.000|
 
+CFG: 0.941
+: total test nr 706, precision 93.702, recall 96.429, f1 95.046
+
+|配置|mAP|mAP@.50IOU|mAP@.75IOU|mAP (small)|mAP (medium)|mAP (large)|AR@1|AR@10|AR@100|AR@100 (small)|AR@100 (medium)|AR@100 (large)|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+||0.563|0.817|0.666|0.657|0.453|-1.000|0.596|0.629|0.629|0.734|0.468|-1.000|
+Per classes
+|配置|ALL|BW|HQ|RGBBQ|BMDBQ|BMGBQ|SC|FBQ|
+|---|---|---|---|---|---|---|---|---|
+|CFG:cascade_ml1|0.817|0.941|0.961|0.980|0.905|0.970|0.000|1.000|
+
+
+CFR:
+: total test nr 519, precision 92.691, recall 95.666, f1 94.155
+
+Per classes
+|配置|ALL|BW|HQ|RGBBQ|BMDBQ|BMGBQ|SC|FBQ|
+|---|---|---|---|---|---|---|---|---|
+|CFG:cascade_ml1|0.961|0.962|0.964|0.952|0.986|0.959|0.930|1.000|
+
+CFBM:
+: total test nr 757, precision 91.725, recall 97.149, f1 94.359
+
+|配置|ALL|BW|HQ|BMDBQ|BMGBQ|SC|FBQ|FB|
+|---|---|---|---|---|---|---|---|---|
+|CFG:cascade_ml1|0.979|0.976|0.947|0.987|0.990|1.000|1.000|0.967|
+
+
+CFITO:
+: total test nr 865, precision 92.683, recall 93.699, f1 93.188
+
+Per classes
+|配置|ALL|BW|HQ|SC|YW|FB|
+|---|---|---|---|---|---|---|
+|CFG:cascade_ml1|0.954|0.942|0.932|N.A.|N.A.|1.000|
+
+
+
 
 ## YOLO 
 
