@@ -4,6 +4,7 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser(description="build gif")
     parser.add_argument("--gpus",type=str,default="0",help="src dir")
+    parser.add_argument("--model",type=str,default="yolo11l-seg",help="src dir")
     args = parser.parse_args()
     return args
 

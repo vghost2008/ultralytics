@@ -495,7 +495,7 @@ class Exporter:
                 dynamic["output0"] = {0: "batch", 2: "anchors"}  # shape(1, 84, 8400)
 
         torch.onnx.export(
-            self.model.cpu() if dynamic else self.model,  # dynamic=True only compatible with cpu
+            self.model.cpu() if dynamic else self.model,  # dynamic=True only compatible with cpu, ultralytics.nn.tasks.DetectionModel ...
             self.im.cpu() if dynamic else self.im,
             f,
             verbose=False,
