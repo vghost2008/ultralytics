@@ -358,7 +358,11 @@ def dist2bbox(distance, anchor_points, xywh=True, dim=-1):
 
 
 def bbox2dist(anchor_points, bbox, reg_max):
-    """Transform bbox(xyxy) to dist(ltrb)."""
+    """
+    Transform bbox(xyxy) to dist(ltrb).
+    anchor_points: [num_anchors,2]
+    bbox: [batch_size,num_anchors,4]
+    """
     x1y1, x2y2 = bbox.chunk(2, -1)
     return torch.cat((anchor_points - x1y1, x2y2 - anchor_points), -1).clamp_(0, reg_max - 0.01)  # dist (lt, rb)
 

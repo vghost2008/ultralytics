@@ -145,7 +145,8 @@ class AutoBackend(nn.Module):
         if nn_module:
             model = weights.to(device)
             if fuse:
-                model = model.fuse(verbose=verbose)
+                model = model.fuse(verbose=verbose) #wj debug
+                pass
             if hasattr(model, "kpt_shape"):
                 kpt_shape = model.kpt_shape  # pose-only
             stride = max(int(model.stride.max()), 32)  # model stride

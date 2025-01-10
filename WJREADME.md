@@ -26,6 +26,6 @@ ultralytics.data.utils.verify_image_label
 
 ## YAML to model
 
-ultralytics.engine.model.Model yaml_model_load(加载配置) -> DetectionModel.__init__ parse_model --> ultralytics.nn.tasks::parse_model
+ultralytics.engine.model.Model yaml_model_load(加载配置) -> ultralytics.nn.tasks::DetectionModel.__init__ parse_model --> ultralytics.nn.tasks::parse_model
 
 

@@ -97,7 +97,13 @@ class BboxLoss(nn.Module):
         self.dfl_loss = DFLoss(reg_max) if reg_max > 1 else None
 
     def forward(self, pred_dist, pred_bboxes, anchor_points, target_bboxes, target_scores, target_scores_sum, fg_mask):
-        """IoU loss."""
+        '''
+        pred_bboxes,target_bboxes的大小需要提前除以strides
+        pred_bboxes: [bs,num_anchors,4]
+        target_bboxes: [bs,num_anchors,4]
+        anchor_points: [num_anchors,2] 
+        taget_scores: [bs,num_anchors,nc]
+        '''
         weight = target_scores.sum(-1)[fg_mask].unsqueeze(-1)
         iou = bbox_iou(pred_bboxes[fg_mask], target_bboxes[fg_mask], xywh=False, CIoU=True)
         loss_iou = ((1.0 - iou) * weight).sum() / target_scores_sum
@@ -192,7 +198,7 @@ class v8DetectionLoss:
                 n = matches.sum()
                 if n:
                     out[j, :n] = targets[matches, 1:]
-            out[..., 1:5] = xywh2xyxy(out[..., 1:5].mul_(scale_tensor))
+            out[..., 1:5] = xywh2xyxy(out[..., 1:5].mul_(scale_tensor)) #相对坐标转化为绝对坐标
         return out
 
     def bbox_decode(self, anchor_points, pred_dist):
@@ -249,7 +255,7 @@ class v8DetectionLoss:
 
         # Bbox loss
         if fg_mask.sum():
-            target_bboxes /= stride_tensor
+            target_bboxes /= stride_tensor #stride_tensor shape: [num_anchors,1], target_bboxes shape:[ bs,num_anchors,4]
             loss[0], loss[2] = self.bbox_loss(
                 pred_distri, pred_bboxes, anchor_points, target_bboxes, target_scores, target_scores_sum, fg_mask
             )

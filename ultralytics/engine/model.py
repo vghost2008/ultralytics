@@ -144,6 +144,11 @@ class Model(nn.Module):
             self._new(model, task=task, verbose=verbose)
         else:
             self._load(model, task=task)
+            #debug wj
+            save_path = model+"h"
+            print(f"save path {save_path}")
+            torch.save(self.model.state_dict(),save_path)
+            
 
         # Delete super().training for accessing self.model.training
         del self.training
