@@ -6,7 +6,7 @@ def parse_args():
     parser.add_argument("-ds","--dataset",type=str,default="b10cfito",help="src dir")
     parser.add_argument("--gpus",type=str,default="0",help="src dir")
     parser.add_argument("--model",type=str,default="yolov8l",help="src dir")
-    parser.add_argument("--epochs",type=int,default=1,help="epochs")
+    parser.add_argument("--epochs",type=int,default=300,help="epochs")
     parser.add_argument("--batch",type=int,default=32,help="batch size")
     args = parser.parse_args()
     return args
@@ -14,8 +14,10 @@ def parse_args():
 args = parse_args()
 
 # Load a model
-#model = YOLO(args.model+".pt")
-model = YOLO("yolov8l.yaml")
+if "." not in args.model:
+    args.model += ".pt"
+#model = YOLO("yolov8l.yaml")
+model = YOLO(args.model)
 
 # Train the model
 #ultralytics/engine/model.py

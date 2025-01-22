@@ -6,9 +6,10 @@ import re
 import types
 from copy import deepcopy
 from pathlib import Path
-
+import traceback
 import torch
 import torch.nn as nn
+import sys
 
 from ultralytics.nn.modules import (
     AIFI,

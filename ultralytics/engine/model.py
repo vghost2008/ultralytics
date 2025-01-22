@@ -84,6 +84,7 @@ class Model(nn.Module):
         model: Union[str, Path] = "yolo11n.pt",
         task: str = None,
         verbose: bool = False,
+        cfg=None,
     ) -> None:
         """
         Initializes a new instance of the YOLO model class.
@@ -141,7 +142,7 @@ class Model(nn.Module):
 
         # Load or create new YOLO model
         if Path(model).suffix in {".yaml", ".yml"}:
-            self._new(model, task=task, verbose=verbose)
+            self._new(model, task=task, verbose=verbose,input_cfg=cfg)
         else:
             self._load(model, task=task)
             #debug wj
@@ -231,7 +232,7 @@ class Model(nn.Module):
         """
         return model.startswith(f"{HUB_WEB_ROOT}/models/")
 
-    def _new(self, cfg: str, task=None, model=None, verbose=False) -> None:
+    def _new(self, cfg: str, task=None, model=None, verbose=False,input_cfg=None) -> None:
         """
         Initializes a new model and infers the task type from the model definitions.
 
@@ -255,6 +256,8 @@ class Model(nn.Module):
             >>> model._new("yolov8n.yaml", task="detect", verbose=True)
         """
         cfg_dict = yaml_model_load(cfg)
+        if input_cfg is not None:
+            cfg_dict.update(input_cfg)
         self.cfg = cfg
         self.task = task or guess_model_task(cfg_dict)
         self.model = (model or self._smart_load("model"))(cfg_dict, verbose=verbose and RANK == -1)  # build model
